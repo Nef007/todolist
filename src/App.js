@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import listSvg from './assets/img/menu.svg'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="todo">
+      <div className="todo_sidebar">
+            <ul className="todo_list">
+                <li className="active">
+                    <i>
+                        <img src={listSvg} alt="list icon"/>
+                    </i>
+                    <span>Все задачи</span>
+                </li>
+
+            </ul>
+    </div>
+        <div className="todo_tasks">
+
+    </div>
     </div>
   );
 }
