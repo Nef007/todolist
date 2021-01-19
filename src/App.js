@@ -1,19 +1,47 @@
-import './App.css';
-import listSvg from './assets/img/menu.svg'
+import React from "react";
+
+import listSvg from "./assets/img/menu.svg";
+import AddSvg from "./assets/img/plus.svg";
+
+import List from "./components/List/List";
+import AddList from "./components/AddList/AddList";
+
 
 function App() {
   return (
     <div className="todo">
       <div className="todo_sidebar">
-            <ul className="todo_list">
-                <li className="active">
-                    <i>
-                        <img src={listSvg} alt="list icon"/>
-                    </i>
-                    <span>Все задачи</span>
-                </li>
+          <List items={[
+              {
+                  icon: listSvg,
+                  name: "Все задачи",
+                  active: true
 
-            </ul>
+              },
+
+          ]}/>
+          <List items={[
+              {
+                  color: 'green',
+                  name: "Покупки"
+
+              },
+              {
+                  color: 'blue',
+                  name: "Фронтенд"
+
+              },
+              {
+                  color: 'pink',
+                  name: "Фильмы и сериалы"
+
+              },
+
+          ]}
+          isRemovable
+          />
+          <AddList/>
+
     </div>
         <div className="todo_tasks">
 
