@@ -6,6 +6,8 @@ import AddSvg from "./assets/img/plus.svg";
 import List from "./components/List/List";
 import AddList from "./components/AddList/AddList";
 
+import DB from "./assets/db.json"
+
 
 function App() {
   return (
@@ -40,7 +42,7 @@ function App() {
           ]}
           isRemovable
           />
-          <AddList/>
+          <AddList colors={DB.colors}/>
 
     </div>
         <div className="todo_tasks">
