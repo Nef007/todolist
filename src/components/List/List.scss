@@ -1,48 +1,89 @@
 
   .list {
+    $self: &;
     margin-bottom: 20px;
 
 
-    li  {
+    &_add-button {
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 1;
+      }
+
+
+    }
+
+
+
+
+    img {
+      height: 16px;
+    }
+
+
+
+    li {
       display: flex;
       align-items: center;
       padding: 10px 12px;
       cursor: pointer;
+      transition: background-color 0.15s ease-in-out;
+
+      &:hover #{$self}_removeIcon {
+        opacity: 0.2;
+      }
+
+      #{$self}_removeIcon {
+        opacity: 0;
+        transition: opacity 0.15s ease-in-out;
+
+        &:hover {
+          opacity: 1;
+        }
+
+      }
+
+
+      span {
+        flex: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 160px;
+        white-space: nowrap;
+
+      }
+
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
 
 
       &.active {
         background: #ffffff;
-        box-shadow: 0 2px 10px rgba(0,0,0, 0.05);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         border-radius: 4px;
       }
 
 
-      .badge{
+      .badge {
         position: relative;
         left: 5px;
       }
 
 
     }
+
     i {
       display: inline-flex;
       margin-right: 8px;
+
       img {
         opacity: 0.6;
       }
     }
 
-
-    &_add-button {
-      opacity: 0.5;
-     &:hover {
-       opacity: 1;
-     }
-
-    }
   }
 
 
-img {
-  height: 16px;
-}

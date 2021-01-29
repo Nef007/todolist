@@ -1,16 +1,59 @@
 import List from "../List/List";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
-import AddSvg from "../../assets/img/plus.svg";
 import './AddList.scss'
 import Badge from "../Badge/Badge";
 
+import AddSvg from "../../assets/img/plus.svg";
 import closeSvg from "../../assets/img/close.svg"
 
-const AddList =({colors})=> {
+const AddList =({colors, onAdd})=> {
 
 let [visiblePopup, setVisiblePopup] = useState(false)
-let [selectedColor, selectColor] = useState(colors[0].id)
+let [selectedColor, selectColor] = useState(3)
+let [inputValue, setinputValue] = useState('')
+let [isLoading, setisLoading] = useState(false)
+
+  useEffect(()=> {
+      if(Array.isArray(colors)) {
+          selectColor(colors[0].id)
+      }
+
+  }, [colors])
+
+    const onClose = () => {
+        setVisiblePopup(false)
+        setinputValue('')
+        selectColor((colors[0].id));
+
+    }
+
+const addList =() => {
+    if (!inputValue){
+        alert('Введите значение')
+        return;
+    }
+
+    setisLoading(true)
+    axios.post('http://localhost:3001/lists', {
+        name: inputValue,
+        colorId: selectedColor
+    }).then(({data}) => {
+        const color = colors.filter(c => c.id === selectedColor)[0]
+        const listObj = { ...data, color, tasks: []}
+        onAdd(listObj)
+        onClose();
+
+    }).catch(()=> {
+        alert("Ошибка при добавлении списка")
+    }).finally(()=> {
+        setisLoading(false)
+    })
+
+
+
+}
 
   return<div className="add-list">
     <List onClick={() => setVisiblePopup(!visiblePopup)}
@@ -26,8 +69,8 @@ let [selectedColor, selectColor] = useState(colors[0].id)
 
     />
       {visiblePopup && <div className="add-list_popup">
-          <img onClick={()=> setVisiblePopup(false)} src={closeSvg} alt="Close button" className="add-list_popup-close-btn"/>
-           <input className="field" type="text" placeholder="Название списка"/>
+          <img onClick={onClose} src={closeSvg} alt="Close button" className="add-list_popup-close-btn"/>
+           <input onChange={e => setinputValue(e.target.value) } value={inputValue} className="field" type="text" placeholder="Название списка"/>
            <div className="add-list_popup-colors">
 
 
@@ -37,7 +80,9 @@ let [selectedColor, selectColor] = useState(colors[0].id)
                    }
 
            </div>
-           <button className="button">Добавить</button>
+           <button onClick={addList} className="button">
+               {isLoading ? 'Добавление..' : 'Добавить' }
+           </button>
     </div>}
     </div>
 };
